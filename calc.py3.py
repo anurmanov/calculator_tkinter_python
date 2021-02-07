@@ -5,8 +5,8 @@ from tkinter import messagebox
 from tkinter.scrolledtext import ScrolledText
 
 def slice_n_calc_factorial(nums, d=1000):
-    """Функция рекурсивно делит список чисел на подсписки по d элементов в каждом,
-    перемножает элементы подсписков и в итоге вычисляет итоговый факториал"""
+    """Recursive function slices list of numbers on sublists (d items in each one),
+    multiply items of sublists and return final factorial"""
     if len(nums) > d:
         i = 1
         j = 1
@@ -21,13 +21,12 @@ def slice_n_calc_factorial(nums, d=1000):
     return functools.reduce(lambda x,y: x*y, nums)
 
 def my_factorial(n):
-    """Генерирует список чисел от 1 до n и отдает его рекурсивной функции slice_n_calc_factorial"""
     nums = (list(range(n)) + [n])[1:]
     return slice_n_calc_factorial(nums)
 
 def calc():
     e_result.delete('1.0', tk.END)
-    e_result.insert(tk.INSERT, 'Вычисляю...')
+    e_result.insert(tk.INSERT, 'Calculating...')
     oper = str(operation.get())
     d1 = int(e1.get())
     if oper != '!':
@@ -47,27 +46,27 @@ def calc():
             res*=d1
         text = str(res)
     elif oper == '!':
-        #text = str(my_factorial(d1))
-        text = str(math.factorial(d1))
+        text = str(my_factorial(d1))
+        #text = str(math.factorial(d1))
     e_result.delete('1.0', tk.END)
-    #результат записываем в result.txt
+    #result saved to file result.txt
     res_file = open('result.txt', 'w')
     res_file.write(text)
     res_file.close()
-    #если длина числа больше 1000 символов, то результат не отображаем
+    #if length of the result is more than 1000 symbols, then result number is not displayed
     if len(text) > 1000:
-        e_result.insert(tk.INSERT, 'Результат сохранен в файле result.txt')
-        messagebox.showinfo(title='Информация', message='Результат сохранен в файле result.txt')
+        e_result.insert(tk.INSERT, 'Result saved to result.txt')
+        messagebox.showinfo(title='Information', message='Result saved to result.txt')
     else:
         e_result.insert(tk.INSERT, text)
 
-oper_names = [('+', '+'),  ('-', '-'), ('*', '*'), ('/', '/'), ('^', '^'), ('!  (факториал 1-го аргумента)', '!')]
+oper_names = [('+', '+'),  ('-', '-'), ('*', '*'), ('/', '/'), ('^', '^'), ('!  (factorial of the 1st arg)', '!')]
 
 root = tk.Tk()
 root.title('Calculator')
 frame = tk.Frame(root)
 frame.pack(anchor=tk.W)
-lbl1 = tk.Label(frame, text='Первый аргумент :')
+lbl1 = tk.Label(frame, text='1st argument :')
 lbl1.pack(side=tk.LEFT)
 e1 = tk.Entry(frame, width=30)
 e1.pack(side=tk.LEFT)
@@ -76,7 +75,7 @@ operation = tk.StringVar()
 
 frame = tk.Frame(root)
 frame.pack(anchor=tk.W)
-lbl2 = tk.Label(frame, text='Операция :')
+lbl2 = tk.Label(frame, text='Operation :')
 lbl2.pack(side=tk.LEFT)
 frameForOps = tk.Frame(frame)
 frameForOps.pack(side=tk.LEFT)
@@ -87,7 +86,7 @@ for oper_name, val in oper_names:
 
 frame = tk.Frame(root)
 frame.pack(anchor=tk.W)
-lbl3 = tk.Label(frame, text='Второй аргумент :')
+lbl3 = tk.Label(frame, text='2nd argument :')
 lbl3.pack(side=tk.LEFT)
 e2 = tk.Entry(frame, width=30)
 e2.pack(side=tk.LEFT)
@@ -96,7 +95,7 @@ b = tk.Button(text='   calc   ', command=calc)
 b.pack(anchor=tk.W)
 frame = tk.Frame(root)
 frame.pack(anchor=tk.W)
-lbl3 = tk.Label(frame, text='Результат :')
+lbl3 = tk.Label(frame, text='Result :')
 lbl3.pack(side=tk.LEFT)
 e_result = ScrolledText(frame, width=150)
 e_result.pack(side=tk.LEFT)
