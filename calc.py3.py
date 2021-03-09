@@ -8,7 +8,6 @@ import tkinter as tk
 from tkinter import messagebox
 from tkinter.scrolledtext import ScrolledText
 
-
 #Tkinter global binded variables.
 #They are used for fetching the result, the arguments and operation type.
 e_result = None
@@ -81,7 +80,7 @@ def calc():
     elif oper == '^':
         result = pow(d1, d2)
     elif oper == '!':
-        text = str(my_factorial(d1))
+        result = str(my_factorial(d1))
         
     e_result.delete('1.0', tk.END)
     #result saved to file result.txt
@@ -95,7 +94,7 @@ def calc():
         messagebox.showinfo(title='Information',
                             message='Result saved to result.txt')
     else:
-        e_result.insert(tk.INSERT, text)
+        e_result.insert(tk.INSERT, result)
 
 
 def build_tkinter_interface():
