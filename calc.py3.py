@@ -62,41 +62,55 @@ def calc():
 
 oper_names = [('+', '+'),  ('-', '-'), ('*', '*'), ('/', '/'), ('^', '^'), ('!  (factorial of the 1st arg)', '!')]
 
-root = tk.Tk()
-root.title('Calculator')
-frame = tk.Frame(root)
-frame.pack(anchor=tk.W)
-lbl1 = tk.Label(frame, text='1st argument :')
-lbl1.pack(side=tk.LEFT)
-e1 = tk.Entry(frame, width=30)
-e1.pack(side=tk.LEFT)
+def build_tkinter_interface():
+    root = tk.Tk()
+    root.title('Calculator')
+    
+    #main window
+    frame = tk.Frame(root)
+    frame.pack(anchor=tk.W)
+    
+    #label "1st argument"
+    lbl1 = tk.Label(frame, text='1st argument :')
+    lbl1.pack(side=tk.LEFT)
+    e1 = tk.Entry(frame, width=30)
+    e1.pack(side=tk.LEFT)
+    #binded variable
+    operation = tk.StringVar()
+    
+    #label "Operation"
+    frame = tk.Frame(root)
+    frame.pack(anchor=tk.W)
+    lbl2 = tk.Label(frame, text='Operation :')
+    lbl2.pack(side=tk.LEFT)
+    frameForOps = tk.Frame(frame)
+    frameForOps.pack(side=tk.LEFT)
+    for oper_name, val in oper_names:
+        r = tk.Radiobutton(frameForOps, text=oper_name, padx = 20, variable=operation, value=val)
+        r.pack(side=tk.LEFT)
+        r.select()
 
-operation = tk.StringVar()
+    #label "2nd argument"
+    frame = tk.Frame(root)
+    frame.pack(anchor=tk.W)
+    lbl3 = tk.Label(frame, text='2nd argument :')
+    lbl3.pack(side=tk.LEFT)
+    e2 = tk.Entry(frame, width=30)
+    e2.pack(side=tk.LEFT)
 
-frame = tk.Frame(root)
-frame.pack(anchor=tk.W)
-lbl2 = tk.Label(frame, text='Operation :')
-lbl2.pack(side=tk.LEFT)
-frameForOps = tk.Frame(frame)
-frameForOps.pack(side=tk.LEFT)
-for oper_name, val in oper_names:
-    r = tk.Radiobutton(frameForOps, text=oper_name, padx = 20, variable=operation, value=val)
-    r.pack(side=tk.LEFT)
-    r.select()
+    #button "calc"
+    b = tk.Button(text='   calc   ', command=calc)
+    b.pack(anchor=tk.W)
+    frame = tk.Frame(root)
+    frame.pack(anchor=tk.W)
+    
+    #label "Result"
+    lbl3 = tk.Label(frame, text='Result :')
+    lbl3.pack(side=tk.LEFT)
+    e_result = ScrolledText(frame, width=150)
+    e_result.pack(side=tk.LEFT)
+    
+    root.mainloop()
 
-frame = tk.Frame(root)
-frame.pack(anchor=tk.W)
-lbl3 = tk.Label(frame, text='2nd argument :')
-lbl3.pack(side=tk.LEFT)
-e2 = tk.Entry(frame, width=30)
-e2.pack(side=tk.LEFT)
-
-b = tk.Button(text='   calc   ', command=calc)
-b.pack(anchor=tk.W)
-frame = tk.Frame(root)
-frame.pack(anchor=tk.W)
-lbl3 = tk.Label(frame, text='Result :')
-lbl3.pack(side=tk.LEFT)
-e_result = ScrolledText(frame, width=150)
-e_result.pack(side=tk.LEFT)
-root.mainloop()
+if __name__ == '__main__':
+    build_tkinter_interface()    
