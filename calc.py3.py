@@ -48,14 +48,13 @@ def read_entry_argument(tkinter_entry):
     try:
         value = int(tkinter_entry.get())
     except:
-        e_result.delete('1.0', tk.END)
-        e_result.insert(tk.INSERT, 'Some arguments have bad format!')
+        show_result('Some arguments have bad format!')
         value = None
     return value
 	
 def init_calc_methods():
     """
-    Add calculationg lambda functions to the each operation
+    Add calculating lambda functions to the each operation
     """
     operations_dict['+'].update(calc = lambda x, y: x + y)
     operations_dict['-'].update(calc = lambda x, y: x - y)
